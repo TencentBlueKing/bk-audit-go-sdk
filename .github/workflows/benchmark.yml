@@ -1,0 +1,19 @@
+name: BenchMark
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  BenchMark:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.19
+    - name: BenchMark
+      run: go test ./bkaudit -bench=. -benchtime=1s -run=none -benchmem
