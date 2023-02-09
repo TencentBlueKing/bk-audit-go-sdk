@@ -1,3 +1,5 @@
+// Package bkaudit - Generate Audit Event and Export
+
 package bkaudit
 
 import (
@@ -29,7 +31,7 @@ func (client *EventClient) AddEvent(
 	resourceType *AuditResource,
 	instance *AuditInstance,
 	auditContext *AuditContext,
-	eventId string,
+	eventID string,
 	eventContent string,
 	startTime int64,
 	endTime int64,
@@ -43,7 +45,7 @@ func (client *EventClient) AddEvent(
 		resourceType,
 		instance,
 		auditContext,
-		eventId,
+		eventID,
 		eventContent,
 		startTime,
 		endTime,

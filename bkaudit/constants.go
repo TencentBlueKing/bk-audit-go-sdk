@@ -5,15 +5,21 @@ const (
 	AuditEventQueueLength int    = 50000
 )
 
-const (
-	AccessTypeWeb     int8 = 0
-	AccessTypeApi     int8 = 1
-	AccessTypeConsole int8 = 2
-	AccessTypeOther   int8 = -1
-)
+// AccessTypeEnum - Access Way Enum
+type AccessTypeEnum int8
 
 const (
-	UserIdentifyTypePersonal int8 = 0
-	UserIdentifyTypePlatform int8 = 1
-	UserIdentifyTypeUnknown  int8 = -1
+	AccessTypeWeb     AccessTypeEnum = 0  // Access Through Web
+	AccessTypeApi     AccessTypeEnum = 1  // Access Through ApiGateWay
+	AccessTypeConsole AccessTypeEnum = 2  // Access Through Console
+	AccessTypeOther   AccessTypeEnum = -1 // Access Through Another Way
+)
+
+// UserIdentifyTypeEnum - User Type Enum
+type UserIdentifyTypeEnum int8
+
+const (
+	UserIdentifyTypePersonal UserIdentifyTypeEnum = 0  // Individual User
+	UserIdentifyTypePlatform UserIdentifyTypeEnum = 1  // Platform User
+	UserIdentifyTypeUnknown  UserIdentifyTypeEnum = -1 // Unknown User Type
 )

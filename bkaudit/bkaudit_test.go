@@ -12,8 +12,8 @@ const (
 	username    = "admin"
 )
 
-var action = AuditAction{ActionId: "view-host"}
-var resourceType = AuditResource{ResourceTypeId: "host"}
+var action = AuditAction{ActionID: "view-host"}
+var resourceType = AuditResource{ResourceTypeID: "host"}
 var instance = AuditInstance{}
 var context = AuditContext{Username: username}
 

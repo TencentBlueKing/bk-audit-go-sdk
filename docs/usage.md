@@ -59,8 +59,8 @@ func initClient() {
 
 ```
 var (
-	ViewHost = bkaudit.AuditAction{ActionId: "view-host"}
-	Host     = bkaudit.AuditResource{ResourceTypeId: "host"}
+	ViewHost = bkaudit.AuditAction{ActionID: "view-host"}
+	Host     = bkaudit.AuditResource{ResourceTypeID: "host"}
 )
 ```
 
@@ -75,7 +75,7 @@ context := bkaudit.AuditContext{Username: "admin"}
 
 ```
 instance := bkaudit.AuditInstance{
-    InstanceId:          "host_01",
+    InstanceID:          "host_01",
     InstanceName:        "主机一号",
     InstanceSensitivity: 0,
     InstanceData:        map[string]any{"ip": "127.0.0.1"},
@@ -107,7 +107,7 @@ func (f *GinFormatter) Format(
 	resourceType *bkaudit.AuditResource,
 	instance *bkaudit.AuditInstance,
 	auditContext *bkaudit.AuditContext,
-	eventId string,
+	eventID string,
 	eventContent string,
 	startTime int64,
 	endTime int64,
@@ -125,7 +125,7 @@ func (f *GinFormatter) Format(
 		resourceType,
 		instance,
 		auditContext,
-		eventId,
+		eventID,
 		eventContent,
 		startTime,
 		endTime,

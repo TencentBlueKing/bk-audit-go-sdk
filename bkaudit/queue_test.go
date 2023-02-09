@@ -40,7 +40,7 @@ func BenchmarkNoExport(b *testing.B) {
 func runTest(client *EventClient, times int) {
 	for i := 0; i < times; i++ {
 		client.AddEvent(
-			&AuditAction{ActionId: "test"},
+			&AuditAction{ActionID: "test"},
 			&AuditResource{},
 			&AuditInstance{},
 			&AuditContext{Username: "admin"},
