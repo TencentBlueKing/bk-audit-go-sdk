@@ -10,6 +10,7 @@ var (
 	logFileName  string
 	totalRunTime int64
 	sleepTime    time.Duration
+	exportEach   int64
 	file         *os.File
 	client       *bkaudit.EventClient
 	action       = bkaudit.AuditAction{ActionID: "view-file"}

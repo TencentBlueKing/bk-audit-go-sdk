@@ -10,8 +10,9 @@ func initRunParams() {
 	_logFileName := flag.String("name", "report.log", "")
 	_totalRunTime := flag.Int64("total", 0, "")
 	_sleepTime := flag.Duration("sleep", 1000*1000*1000, "")
+	_exportEach := flag.Int64("each", 1, "")
 	flag.Parse()
-	logFileName, totalRunTime, sleepTime = *_logFileName, *_totalRunTime, *_sleepTime
+	logFileName, totalRunTime, sleepTime, exportEach = *_logFileName, *_totalRunTime, *_sleepTime, *_exportEach
 }
 
 func initClient() {
