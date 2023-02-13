@@ -1,4 +1,4 @@
-name: Example
+name: Continues Export
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ "*" ]
 
 jobs:
-  Example:
+  ContinuesExport:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -15,5 +15,5 @@ jobs:
       uses: actions/setup-go@v3
       with:
         go-version: 1.19
-    - name: Run Example
-      run: cd example/normal && go build -v ./... && ./normal
+    - name: Run Continues Example
+      run: cd example/continues_export && go build -v ./... && ./continues_export -total 10
