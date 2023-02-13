@@ -27,10 +27,12 @@ func (e *fileExporter) Export(queue bkaudit.BaseQueue) {
 func exportLog() {
 	var i, j int64
 	for i = 1; totalRunTime == 0 || i <= totalRunTime; i++ {
-		for j = 0; j < exportEach; j++ {
-			client.AddEvent(&action, &resourceType, &instance, &context, "", "", 0, 0, 0, "", map[string]any{})
-		}
-		log.Printf("CurrentRuntime: %d; TotalRunTime => %d", i, totalRunTime)
+		go func() {
+			for j = 0; j < exportEach; j++ {
+				client.AddEvent(&action, &resourceType, &instance, &context, "", "", 0, 0, 0, "", map[string]any{})
+			}
+			log.Printf("CurrentRuntime: %d; TotalRunTime => %d", i, totalRunTime)
+		}()
 		time.Sleep(sleepTime)
 	}
 }
