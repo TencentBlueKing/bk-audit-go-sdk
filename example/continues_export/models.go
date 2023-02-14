@@ -7,6 +7,7 @@ import (
 )
 
 var (
+	startTime    string
 	logFileName  string
 	totalRunTime int64
 	sleepTime    time.Duration

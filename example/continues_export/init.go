@@ -4,6 +4,7 @@ import (
 	"flag"
 	"github.com/TencentBlueKing/bk-audit-go-sdk/bkaudit"
 	"os"
+	"time"
 )
 
 func initRunParams() {
@@ -13,6 +14,7 @@ func initRunParams() {
 	_exportEach := flag.Int64("each", 1, "")
 	flag.Parse()
 	logFileName, totalRunTime, sleepTime, exportEach = *_logFileName, *_totalRunTime, *_sleepTime, *_exportEach
+	startTime = time.Now().Format(time.RFC3339)
 }
 
 func initClient() {
