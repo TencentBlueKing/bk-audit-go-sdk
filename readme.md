@@ -1,7 +1,7 @@
 ![logo.png](assests/logo.png)
 
 [![license](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://github.com/TencentBlueKing/bk-audit-go-sdk/blob/master/LICENSE.txt)
-[![Release Version](https://img.shields.io/badge/release-0.0.2-brightgreen.svg)](https://github.com/TencentBlueKing/bk-audit-go-sdk/releases)
+[![Release Version](https://img.shields.io/badge/release-0.0.3-brightgreen.svg)](https://github.com/TencentBlueKing/bk-audit-go-sdk/releases)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/TencentBlueKing/bk-audit-go-sdk/pulls)
 [![codecov](https://codecov.io/gh/TencentBlueKing/bk-audit-go-sdk/branch/master/graph/badge.svg?token=4MAZBZ9UJY)](https://codecov.io/gh/TencentBlueKing/bk-audit-go-sdk)
 [![Unittest](https://github.com/TencentBlueKing/bk-audit-go-sdk/actions/workflows/unittest.yml/badge.svg)](https://github.com/TencentBlueKing/bk-audit-go-sdk/actions/workflows/unittest.yml)
