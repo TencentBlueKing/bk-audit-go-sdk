@@ -56,6 +56,7 @@ func exportLog() {
 			// update loop param
 			i++
 			exportTime = exportTime.Add(sleepTime)
+			checkFileAfterWrite()
 			continue
 		}
 		break
