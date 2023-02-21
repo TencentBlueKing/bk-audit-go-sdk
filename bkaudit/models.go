@@ -31,7 +31,7 @@ type AuditEvent struct {
 	ResultCode           int64                `json:"result_code"`
 	ResultContent        string               `json:"result_content"`
 	ExtendData           map[string]any       `json:"extend_data"`
-	AuditEventSignature  string               `json:"audit_event_signature"`
+	BkLogScope           string               `json:"bk_log_scope"`
 }
 
 // String - Trans Audit Event to String

@@ -56,7 +56,7 @@ func (f *Formatter) Format(
 		ResultCode:           resultCode,
 		ResultContent:        resultContent,
 		ExtendData:           extendData,
-		AuditEventSignature:  AuditEventSignature,
+		BkLogScope:           AuditEventSignature,
 	}
 	// Check Event Validate
 	if err := auditEvent.Validate(); err == nil {
