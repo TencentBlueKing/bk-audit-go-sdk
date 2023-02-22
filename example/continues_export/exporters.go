@@ -26,7 +26,7 @@ func (e *fileExporter) Export(queue bkaudit.BaseQueue) {
 
 func exportLog() {
 	// init export time
-	exportTime := time.Now().Add(sleepTime)
+	exportTime := time.Now().Add(*sleepTime)
 	// init loop param
 	var i int64 = 1
 	// endless loop
@@ -34,14 +34,14 @@ func exportLog() {
 		now := time.Now()
 		// check run
 		if now.Before(exportTime) {
-			time.Sleep(sleepTime / 10)
+			time.Sleep(*sleepTime / 10)
 			continue
 		}
 		// init loop param
-		if totalRunTime == 0 || i <= totalRunTime {
+		if *totalRunTime == 0 || i <= *totalRunTime {
 			// export log
 			var j int64
-			for j = 0; j < exportEach; j++ {
+			for j = 0; j < *exportEach; j++ {
 				client.AddEvent(&action, &resourceType, &instance, &context, "", "", 0, 0, 0, "", map[string]any{})
 			}
 			// print log
@@ -49,13 +49,13 @@ func exportLog() {
 				"StartTime: %s; CurrentTime: %s; ExportTotal: %d; CurrentRuntime: %d; TotalRunTime => %d\n",
 				startTime,
 				now.Format(time.RFC3339Nano),
-				i*exportEach,
+				i*(*exportEach),
 				i,
-				totalRunTime,
+				*totalRunTime,
 			)
 			// update loop param
 			i++
-			exportTime = exportTime.Add(sleepTime)
+			exportTime = exportTime.Add(*sleepTime)
 			checkFileAfterWrite()
 			continue
 		}
