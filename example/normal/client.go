@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/TencentBlueKing/bk-audit-go-sdk/bkaudit"
 )
 
@@ -17,7 +16,7 @@ func initClient() {
 	// init client
 	client, err = bkaudit.InitEventClient("BkAppCode", "BkAppSecret", formatter, exporters, 0, nil)
 	if err != nil {
-		fmt.Println("init client failed")
+		bkaudit.RuntimeLog.Info("init client failed")
 		return
 	}
 }

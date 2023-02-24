@@ -21,7 +21,14 @@ func initRunParams() {
 
 func initClient() {
 	var err error
-	client, err = bkaudit.InitEventClient("", "", &bkaudit.Formatter{}, []bkaudit.BaseExporter{&fileExporter{}}, 0, nil)
+	client, err = bkaudit.InitEventClient(
+		"",
+		"",
+		&bkaudit.Formatter{},
+		[]bkaudit.BaseExporter{&bkaudit.Exporter{}},
+		0,
+		nil,
+	)
 	if err != nil {
 		panic("client init failed")
 	}
@@ -41,6 +48,7 @@ func initLogFile() {
 		panic("open log file error")
 	}
 	file = _file
+	bkaudit.EventLog.SetOutput(file)
 }
 
 func getNextFileIndex() {
@@ -57,7 +65,7 @@ func checkFileBeforeWrite() {
 	// get file stat info
 	stat, err := nextFile.Stat()
 	// if error, open new file
-	if err != nil || float64(stat.Size()) > *maxFileSize {
+	if err != nil || float64(stat.Size()) > *maxFileSize*1024*1024 {
 		removeOldLogFile()
 	}
 }
@@ -66,7 +74,7 @@ func checkFileAfterWrite() {
 	// get file stat info
 	stat, err := file.Stat()
 	// if error, open new file
-	if err != nil || float64(stat.Size()) > *maxFileSize {
+	if err != nil || float64(stat.Size()) > *maxFileSize*1024*1024 {
 		getNextFileIndex()
 		initLogFile()
 	}

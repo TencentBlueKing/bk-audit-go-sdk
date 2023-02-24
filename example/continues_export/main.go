@@ -1,18 +1,20 @@
 package main
 
-import "fmt"
+import (
+	"github.com/TencentBlueKing/bk-audit-go-sdk/bkaudit"
+)
 
 func main() {
 	initRunParams()
-	fmt.Printf("StartAt %s\n", startTime)
-	fmt.Printf(
-		"Init Run Params Finished; TotalRuntime => %d; ExportEach => %d; SleepTime => %s\n",
+	bkaudit.RuntimeLog.Infof("StartAt %s", startTime)
+	bkaudit.RuntimeLog.Infof(
+		"Init Run Params Finished; TotalRuntime => %d; ExportEach => %d; SleepTime => %s",
 		*totalRunTime,
 		*exportEach,
 		*sleepTime,
 	)
 	initLogFile()
-	fmt.Printf("Init Log File Finished; File Name => %s\n", *logFileName)
+	bkaudit.RuntimeLog.Infof("Init Log File Finished; File Name => %s", *logFileName)
 	initClient()
 	exportLog()
 	defer func() { _ = file.Close() }()

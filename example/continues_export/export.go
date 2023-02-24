@@ -7,24 +7,6 @@ import (
 	"time"
 )
 
-type fileExporter struct{}
-
-func (e *fileExporter) Export(queue bkaudit.BaseQueue) {
-	for event := range queue {
-		// get string data
-		data, err := event.String()
-		if err != nil {
-			fmt.Printf("export event failed: %s\n", err)
-			return
-		}
-		// Directly Export to Log
-		_, err = file.Write([]byte(data + "\n"))
-		if err != nil {
-			fmt.Printf("export event failed: %s\n", err)
-		}
-	}
-}
-
 func exportLog() {
 	// init export time
 	exportTime := time.Now().Add(*sleepTime)
@@ -47,8 +29,8 @@ func exportLog() {
 				client.AddEvent(&action, &resourceType, &instance, &context, eventID, "", 0, 0, 0, "", map[string]any{})
 			}
 			// print log
-			fmt.Printf(
-				"StartTime: %s; CurrentTime: %s; ExportTotal: %d; CurrentRuntime: %d; TotalRunTime => %d\n",
+			bkaudit.RuntimeLog.Infof(
+				"StartTime: %s; CurrentTime: %s; ExportTotal: %d; CurrentRuntime: %d; TotalRunTime => %d",
 				startTime,
 				now.Format(time.RFC3339Nano),
 				i*(*exportEach),
