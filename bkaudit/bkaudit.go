@@ -4,8 +4,6 @@ package bkaudit
 
 import (
 	"errors"
-	"github.com/google/uuid"
-	log "github.com/sirupsen/logrus"
 )
 
 // EventClient - Client to Generate Event
@@ -54,7 +52,7 @@ func (client *EventClient) AddEvent(
 		extendData,
 	)
 	if err != nil {
-		log.Error("format event failed: ", err)
+		RuntimeLog.Error("format event failed: ", err)
 		return
 	}
 	// Add BkAppCode
@@ -75,14 +73,7 @@ func InitEventClient(
 	preInit func(),
 ) (client *EventClient, err error) {
 	// pre init
-	if preInit == nil {
-		func() {
-			// init uuid version 4
-			uuid.EnableRandPool()
-			// init log
-			initLog()
-		}()
-	} else {
+	if preInit != nil {
 		preInit()
 	}
 	// Init Validator

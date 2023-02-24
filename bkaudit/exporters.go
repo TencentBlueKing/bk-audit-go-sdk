@@ -1,9 +1,5 @@
 package bkaudit
 
-import (
-	log "github.com/sirupsen/logrus"
-)
-
 // BaseExporter - Interface for Exporter
 type BaseExporter interface {
 	Export(queue BaseQueue)
@@ -18,10 +14,10 @@ func (e *Exporter) Export(queue BaseQueue) {
 		// get string data
 		data, err := event.String()
 		if err != nil {
-			log.Error("export event failed: ", err)
+			RuntimeLog.Error("export event failed: ", err)
 			return
 		}
-		// Directly Export to Log
-		log.Info(data)
+		// Directly Export to EventLog
+		EventLog.Info(data)
 	}
 }

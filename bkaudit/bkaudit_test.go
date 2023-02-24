@@ -1,7 +1,6 @@
 package bkaudit
 
 import (
-	log "github.com/sirupsen/logrus"
 	"testing"
 	"time"
 )
@@ -60,7 +59,7 @@ func TestAddEventFailed(t *testing.T) {
 
 func TestCustomPreInit(t *testing.T) {
 	var preInit = func() {
-		log.Info("custom pre init")
+		RuntimeLog.Info("custom pre init")
 	}
 	_, _ = InitEventClient(bkAppCode, bkAppSecret, &Formatter{}, []BaseExporter{&Exporter{}}, 0, preInit)
 }
