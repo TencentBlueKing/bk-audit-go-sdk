@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/TencentBlueKing/bk-audit-go-sdk/bkaudit"
+	"github.com/google/uuid"
 	"time"
 )
 
@@ -42,7 +43,8 @@ func exportLog() {
 			// export log
 			var j int64
 			for j = 0; j < *exportEach; j++ {
-				client.AddEvent(&action, &resourceType, &instance, &context, "", "", 0, 0, 0, "", map[string]any{})
+				eventID := fmt.Sprintf("%d.%s", time.Now().UnixNano(), uuid.NewString())
+				client.AddEvent(&action, &resourceType, &instance, &context, eventID, "", 0, 0, 0, "", map[string]any{})
 			}
 			// print log
 			fmt.Printf(
