@@ -1,38 +1,16 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"github.com/TencentBlueKing/bk-audit-go-sdk/bkaudit"
 	"os"
 	"time"
 )
 
-func initRunParams() {
-	logFileName = flag.String("name", "report", "")
-	maxFileSize = flag.Float64("size", 1024, "") // 1024M
-	maxBackupCount = flag.Int64("backup", 5, "")
-	totalRunTime = flag.Int64("total", 0, "")
-	sleepTime = flag.Duration("sleep", 1000*1000*1000, "")
-	exportEach = flag.Int64("each", 1, "")
-	flag.Parse()
-	startTime = time.Now().Format(time.RFC3339Nano)
-}
-
-func initClient() {
-	var err error
-	client, err = bkaudit.InitEventClient(
-		"",
-		"",
-		&bkaudit.Formatter{},
-		[]bkaudit.BaseExporter{&bkaudit.Exporter{}},
-		0,
-		nil,
-	)
-	if err != nil {
-		panic("client init failed")
-	}
-}
+var (
+	file    *os.File
+	oldFile *os.File
+)
 
 func initLogFile() {
 	checkFileBeforeWrite()

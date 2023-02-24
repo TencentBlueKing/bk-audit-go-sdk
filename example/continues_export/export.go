@@ -26,6 +26,8 @@ func exportLog() {
 			var j int64
 			for j = 0; j < *exportEach; j++ {
 				eventID := fmt.Sprintf("%d.%s", time.Now().UnixNano(), uuid.NewString())
+				instance := bkaudit.AuditInstance{InstanceID: "z0001"}
+				context := bkaudit.AuditContext{Username: "admin"}
 				client.AddEvent(&action, &resourceType, &instance, &context, eventID, "", 0, 0, 0, "", map[string]any{})
 			}
 			// print log
