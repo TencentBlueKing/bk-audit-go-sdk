@@ -59,7 +59,7 @@ func TestAddEventFailed(t *testing.T) {
 
 func TestCustomPreInit(t *testing.T) {
 	var preInit = func() {
-		RuntimeLog.Info("custom pre init")
+		rLog.Info("custom pre init")
 	}
 	_, _ = InitEventClient(bkAppCode, bkAppSecret, &Formatter{}, []BaseExporter{&Exporter{}}, 0, preInit)
 }

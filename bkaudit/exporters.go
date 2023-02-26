@@ -14,10 +14,10 @@ func (e *Exporter) Export(queue BaseQueue) {
 		// get string data
 		data, err := event.String()
 		if err != nil {
-			RuntimeLog.Error("export event failed: ", err)
+			rLog.Error("export event failed: ", err)
 			return
 		}
 		// Directly Export to EventLog
-		EventLog.Info(data)
+		eLog.Info(data)
 	}
 }

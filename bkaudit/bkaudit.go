@@ -52,7 +52,7 @@ func (client *EventClient) AddEvent(
 		extendData,
 	)
 	if err != nil {
-		RuntimeLog.Error("format event failed: ", err)
+		rLog.Error("format event failed: ", err)
 		return
 	}
 	// Add BkAppCode
