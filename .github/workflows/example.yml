@@ -16,4 +16,4 @@ jobs:
       with:
         go-version: 1.19
     - name: Run Example
-      run: cd example/normal && go build -v ./... && ./normal
+      run: cd example && go build -v ./... && ./example

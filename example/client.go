@@ -2,8 +2,10 @@ package main
 
 import (
 	"github.com/TencentBlueKing/bk-audit-go-sdk/bkaudit"
+	log "github.com/sirupsen/logrus"
 )
 
+// use single client
 var client *bkaudit.EventClient
 
 func init() {
@@ -15,7 +17,7 @@ func init() {
 	var err error
 	client, err = bkaudit.InitEventClient("BkAppCode", "BkAppSecret", formatter, exporters, 0, nil)
 	if err != nil {
-		bkaudit.RuntimeLog.Info("init client failed")
+		log.Info("init client failed")
 		return
 	}
 }
