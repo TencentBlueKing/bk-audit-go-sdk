@@ -2,7 +2,7 @@ package bkaudit
 
 // Exporter - Interface for Exporter
 type Exporter interface {
-	Export(queue BaseQueue)
+	Export(queue Queue)
 	Validate() bool
 }
 
@@ -14,7 +14,7 @@ type LoggerExporter struct {
 }
 
 // Export - Export Audit Event to Log
-func (e *LoggerExporter) Export(queue BaseQueue) {
+func (e *LoggerExporter) Export(queue Queue) {
 	for event := range queue {
 		// get string data
 		data, err := event.String()

@@ -9,7 +9,7 @@ type fileExporter struct {
 	file *os.File
 }
 
-func (e *fileExporter) Export(queue BaseQueue) {
+func (e *fileExporter) Export(queue Queue) {
 	e.file, _ = os.OpenFile("audit.log", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
 	defer func() { _ = e.file.Close() }()
 	for event := range queue {
@@ -32,7 +32,7 @@ func BenchmarkExport(b *testing.B) {
 
 type noExporter struct{}
 
-func (e *noExporter) Export(queue BaseQueue) {
+func (e *noExporter) Export(queue Queue) {
 	for event := range queue {
 		_, _ = event.String()
 	}

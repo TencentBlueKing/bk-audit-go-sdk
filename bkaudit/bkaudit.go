@@ -13,7 +13,7 @@ type EventClient struct {
 	BkAppSecret string
 	formatter   Formatter
 	exporters   []Exporter
-	queues      []BaseQueue
+	queues      []Queue
 }
 
 func (client *EventClient) check() (err error) {
@@ -92,9 +92,9 @@ func InitEventClient(
 		queueLength = AuditEventQueueLength
 	}
 	// Start Exporter
-	queues := make([]BaseQueue, len(exporters))
+	queues := make([]Queue, len(exporters))
 	for i := 0; i < len(exporters); i++ {
-		q := make(BaseQueue, queueLength)
+		q := make(Queue, queueLength)
 		queues[i] = q
 		go exporters[i].Export(q)
 	}

@@ -1,3 +1,3 @@
 package bkaudit
 
-type BaseQueue chan *AuditEvent
+type Queue chan *AuditEvent
