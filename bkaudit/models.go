@@ -134,7 +134,3 @@ type AuditContext struct {
 	UserIdentifyTenantId string               `json:"userIdentifyTenantId"`
 	ExtraData            map[string]any       `json:"extra_data"`
 }
-
-func init() {
-	uuid.EnableRandPool()
-}

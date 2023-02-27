@@ -5,19 +5,26 @@ import (
 	"testing"
 )
 
-type fileExporter struct{}
+type fileExporter struct {
+	file *os.File
+}
 
 func (e *fileExporter) Export(queue BaseQueue) {
-	file, _ := os.OpenFile("audit.log", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
-	defer func() { _ = file.Close() }()
+	e.file, _ = os.OpenFile("audit.log", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
+	defer func() { _ = e.file.Close() }()
 	for event := range queue {
 		data, _ := event.String()
-		_, _ = file.Write([]byte(data + "\n"))
+		_, _ = e.file.Write([]byte(data + "\n"))
 	}
 }
 
+func (e *fileExporter) Validate() bool {
+	_, err := e.file.Stat()
+	return err != nil
+}
+
 func BenchmarkExport(b *testing.B) {
-	client, _ := InitEventClient("", "", &Formatter{}, []BaseExporter{&fileExporter{}}, 0, nil)
+	client, _ := InitEventClient("", "", &EventFormatter{}, []Exporter{&fileExporter{}}, 0, nil)
 	b.ResetTimer()
 	runTest(client, b.N)
 
@@ -31,8 +38,12 @@ func (e *noExporter) Export(queue BaseQueue) {
 	}
 }
 
+func (e *noExporter) Validate() bool {
+	return true
+}
+
 func BenchmarkNoExport(b *testing.B) {
-	client, _ := InitEventClient("", "", &Formatter{}, []BaseExporter{&noExporter{}}, 0, nil)
+	client, _ := InitEventClient("", "", &EventFormatter{}, []Exporter{&noExporter{}}, 0, nil)
 	b.ResetTimer()
 	runTest(client, b.N)
 }

@@ -1,7 +1,7 @@
 package bkaudit
 
-// BaseFormatter - Interface for Formatter
-type BaseFormatter interface {
+// Formatter - Interface for Formatter
+type Formatter interface {
 	Format(
 		action *AuditAction,
 		resourceType *AuditResource,
@@ -17,11 +17,11 @@ type BaseFormatter interface {
 	) (auditEvent *AuditEvent, err error)
 }
 
-// Formatter - Build in Formatter
-type Formatter struct{}
+// EventFormatter - Build in Formatter
+type EventFormatter struct{}
 
 // Format - Generate Audit Event
-func (f *Formatter) Format(
+func (f *EventFormatter) Format(
 	action *AuditAction,
 	resourceType *AuditResource,
 	instance *AuditInstance,

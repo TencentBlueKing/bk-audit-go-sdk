@@ -4,14 +4,15 @@ package bkaudit
 
 import (
 	"errors"
+	"github.com/google/uuid"
 )
 
 // EventClient - Client to Generate Event
 type EventClient struct {
 	BkAppCode   string
 	BkAppSecret string
-	formatter   BaseFormatter
-	exporters   []BaseExporter
+	formatter   Formatter
+	exporters   []Exporter
 	queues      []BaseQueue
 }
 
@@ -19,6 +20,12 @@ func (client *EventClient) check() (err error) {
 	// Formatter and Exporter should be initialized before use
 	if client.formatter == nil || len(client.exporters) == 0 {
 		return errors.New("formatter or exporter not set")
+	}
+	// Check Exporter Valid
+	for _, e := range client.exporters {
+		if !e.Validate() {
+			return errors.New("exporter validate error")
+		}
 	}
 	return nil
 }
@@ -52,7 +59,7 @@ func (client *EventClient) AddEvent(
 		extendData,
 	)
 	if err != nil {
-		rLog.Error("format event failed: ", err)
+		logger.Error("format event failed: ", err)
 		return
 	}
 	// Add BkAppCode
@@ -67,13 +74,15 @@ func (client *EventClient) AddEvent(
 func InitEventClient(
 	bkAppCode string,
 	bkAppSecret string,
-	formatter BaseFormatter,
-	exporters []BaseExporter,
+	formatter Formatter,
+	exporters []Exporter,
 	queueLength int,
 	preInit func(),
 ) (client *EventClient, err error) {
 	// pre init
-	if preInit != nil {
+	if preInit == nil {
+		uuid.EnableRandPool()
+	} else {
 		preInit()
 	}
 	// Init Validator

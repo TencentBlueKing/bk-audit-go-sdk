@@ -1,6 +1,7 @@
 package bkaudit
 
 import (
+	"github.com/sirupsen/logrus"
 	"testing"
 	"time"
 )
@@ -16,9 +17,11 @@ var resourceType = AuditResource{ResourceTypeID: "host"}
 var instance = AuditInstance{}
 var context = AuditContext{Username: username}
 
+var loggerTest = logrus.New()
+
 func TestEventClient(t *testing.T) {
 	// init client
-	client, err := InitEventClient(bkAppCode, bkAppSecret, &Formatter{}, []BaseExporter{&Exporter{}}, 0, nil)
+	client, err := InitEventClient(bkAppCode, bkAppSecret, &EventFormatter{}, []Exporter{&LoggerExporter{Logger: loggerTest}}, 0, nil)
 	if err != nil {
 		t.Error(err)
 	}
@@ -29,15 +32,22 @@ func TestEventClient(t *testing.T) {
 
 func TestValidateClient(t *testing.T) {
 	// init client
-	_, err := InitEventClient(bkAppCode, bkAppSecret, nil, []BaseExporter{}, 0, nil)
+	_, err := InitEventClient(bkAppCode, bkAppSecret, nil, []Exporter{}, 0, nil)
 	if err == nil {
 		t.Error("validate passed unexpected")
 	}
 }
 
+func TestExporterInvalid(t *testing.T) {
+	_, err := InitEventClient(bkAppCode, bkAppSecret, &EventFormatter{}, []Exporter{&LoggerExporter{}}, 0, nil)
+	if err == nil {
+		t.Error("exporter validate passed unexpected")
+	}
+}
+
 func TestAddEventFailed(t *testing.T) {
 	// init
-	client, _ := InitEventClient(bkAppCode, bkAppSecret, &Formatter{}, []BaseExporter{&Exporter{}}, 0, nil)
+	client, _ := InitEventClient(bkAppCode, bkAppSecret, &EventFormatter{}, []Exporter{&LoggerExporter{Logger: logger}}, 0, nil)
 	// add event
 	// username invalid
 	_context := AuditContext{}
@@ -59,7 +69,7 @@ func TestAddEventFailed(t *testing.T) {
 
 func TestCustomPreInit(t *testing.T) {
 	var preInit = func() {
-		rLog.Info("custom pre init")
+		logger.Info("custom pre init")
 	}
-	_, _ = InitEventClient(bkAppCode, bkAppSecret, &Formatter{}, []BaseExporter{&Exporter{}}, 0, preInit)
+	_, _ = InitEventClient(bkAppCode, bkAppSecret, &EventFormatter{}, []Exporter{&LoggerExporter{Logger: logger}}, 0, preInit)
 }

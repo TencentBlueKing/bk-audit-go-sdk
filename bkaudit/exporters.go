@@ -1,23 +1,37 @@
 package bkaudit
 
-// BaseExporter - Interface for Exporter
-type BaseExporter interface {
+// Exporter - Interface for Exporter
+type Exporter interface {
 	Export(queue BaseQueue)
+	Validate() bool
 }
 
-// Exporter - Build in Exporter
-type Exporter struct{}
+// LoggerExporter - Build in Exporter
+type LoggerExporter struct {
+	Logger interface {
+		Info(arg ...interface{})
+	}
+}
 
 // Export - Export Audit Event to Log
-func (e *Exporter) Export(queue BaseQueue) {
+func (e *LoggerExporter) Export(queue BaseQueue) {
 	for event := range queue {
 		// get string data
 		data, err := event.String()
 		if err != nil {
-			rLog.Error("export event failed: ", err)
+			logger.Error("export event failed: ", err)
 			return
 		}
 		// Directly Export to EventLog
-		eLog.Info(data)
+		e.Logger.Info(data)
 	}
+}
+
+// Validate - Validate Exporter
+func (e *LoggerExporter) Validate() bool {
+	if e.Logger == nil {
+		logger.Error("logger of exporter unset")
+		return false
+	}
+	return true
 }
