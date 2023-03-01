@@ -3,7 +3,6 @@ package bkaudit
 import (
 	"github.com/sirupsen/logrus"
 	"testing"
-	"time"
 )
 
 const (
@@ -27,7 +26,7 @@ func TestEventClient(t *testing.T) {
 	}
 	// add event
 	client.AddEvent(&action, &resourceType, &instance, &context, "", "", 0, 0, 0, "", map[string]any{})
-	time.Sleep(1 * time.Second)
+	client.Exit()
 }
 
 func TestValidateClient(t *testing.T) {
@@ -64,7 +63,7 @@ func TestAddEventFailed(t *testing.T) {
 	// json error
 	_extendData := map[string]any{"func": func() {}}
 	client.AddEvent(&action, &resourceType, &instance, &context, "", "", 0, 0, 0, "", _extendData)
-	time.Sleep(1 * time.Second)
+	client.Exit()
 }
 
 func TestCustomPreInit(t *testing.T) {

@@ -4,6 +4,7 @@ package bkaudit
 
 import (
 	"errors"
+	"sync"
 )
 
 // EventClient - Client to Generate Event
@@ -13,6 +14,7 @@ type EventClient struct {
 	formatter   Formatter
 	exporters   []Exporter
 	queues      []Queue
+	waitGroup   *sync.WaitGroup
 }
 
 func (client *EventClient) check() (err error) {
@@ -69,6 +71,19 @@ func (client *EventClient) AddEvent(
 	}
 }
 
+// Exit - Close Queue and Wait for Goroutine
+func (client *EventClient) Exit() {
+	client.Done()
+	client.waitGroup.Wait()
+}
+
+// Done - Close Queue
+func (client *EventClient) Done() {
+	for _, q := range client.queues {
+		close(q)
+	}
+}
+
 // InitEventClient - Init an Event Client
 func InitEventClient(
 	bkAppCode string,
@@ -84,6 +99,9 @@ func InitEventClient(
 	}
 	// Init Validator
 	initValidator()
+	// Init Sync
+	waitGroup := &sync.WaitGroup{}
+	waitGroup.Add(len(exporters))
 	// Init Queue
 	if queueLength == 0 {
 		queueLength = AuditEventQueueLength
@@ -93,7 +111,7 @@ func InitEventClient(
 	for i := 0; i < len(exporters); i++ {
 		q := make(Queue, queueLength)
 		queues[i] = q
-		go exporters[i].Export(q)
+		go exporters[i].Export(q, waitGroup)
 	}
 	// Init Client
 	client = &EventClient{
@@ -102,6 +120,7 @@ func InitEventClient(
 		formatter:   formatter,
 		exporters:   exporters,
 		queues:      queues,
+		waitGroup:   waitGroup,
 	}
 	// Check Client Valid
 	if err = client.check(); err != nil {
