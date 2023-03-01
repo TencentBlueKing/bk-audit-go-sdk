@@ -4,7 +4,6 @@ package bkaudit
 
 import (
 	"errors"
-	"github.com/google/uuid"
 )
 
 // EventClient - Client to Generate Event
@@ -80,9 +79,7 @@ func InitEventClient(
 	preInit func(),
 ) (client *EventClient, err error) {
 	// pre init
-	if preInit == nil {
-		uuid.EnableRandPool()
-	} else {
+	if preInit != nil {
 		preInit()
 	}
 	// Init Validator
