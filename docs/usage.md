@@ -89,6 +89,9 @@ instance := bkaudit.AuditInstance{
 # 调用 client 的 AddEvent 方法添加审计事件
 # AddEvent 函数的大部分参数都具有默认值，如果无法满足审计需求，请传入必要内容
 Client.AddEvent(&ViewHost, &Host, &instance, &context, "", "", 0, 0, 0, "", map[string]any{})
+
+由于使用了 Goroutine 异步输出，在主进程关闭前，审计事件可能存在未全部输出的情况，请使用 client.Exit() 方法等待事件输出结束
+若为长期运行的程序(如Web服务)，可忽略此操作
 ```
 
 ## 使用进阶

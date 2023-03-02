@@ -1,8 +1,10 @@
 package bkaudit
 
+import "sync"
+
 // Exporter - Interface for Exporter
 type Exporter interface {
-	Export(queue Queue)
+	Export(queue Queue, wg *sync.WaitGroup)
 	Validate() bool
 }
 
@@ -14,7 +16,8 @@ type LoggerExporter struct {
 }
 
 // Export - Export Audit Event to Log
-func (e *LoggerExporter) Export(queue Queue) {
+func (e *LoggerExporter) Export(queue Queue, wg *sync.WaitGroup) {
+	defer wg.Done()
 	for event := range queue {
 		// get string data
 		data, err := event.String()

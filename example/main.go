@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/TencentBlueKing/bk-audit-go-sdk/bkaudit"
-	"time"
 )
 
 func main() {
@@ -16,6 +15,5 @@ func main() {
 		InstanceOriginData:  map[string]any{},
 	}
 	client.AddEvent(&viewHost, &host, &instance, &context, "", "", 0, 0, 0, "", map[string]any{})
-	// wait channel
-	time.Sleep(3 * time.Second)
+	client.Exit()
 }

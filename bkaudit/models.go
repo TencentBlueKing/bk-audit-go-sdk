@@ -61,7 +61,8 @@ func validateEventID(field validator.FieldLevel) bool {
 		return false
 	}
 	if eventID == "" {
-		field.Field().SetString(uuid.NewString())
+		uuidV1, _ := uuid.NewUUID()
+		field.Field().SetString(uuidV1.String())
 	}
 	return true
 }
