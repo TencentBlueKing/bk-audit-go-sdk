@@ -9,29 +9,31 @@ import (
 
 // AuditEvent - Audit Event Contains All Audit Fields
 type AuditEvent struct {
-	EventID              string               `json:"event_id" validate:"event_id"`
-	EventContent         string               `json:"event_content"`
-	RequestID            string               `json:"request_id"`
-	Username             string               `json:"username" validate:"required"`
-	UserIdentifyType     UserIdentifyTypeEnum `json:"user_identify_type" validate:"user_identify_type"`
-	UserIdentifyTenantID string               `json:"user_identify_tenant_id"`
-	StartTime            int64                `json:"start_time" validate:"milli_timestamp"`
-	EndTime              int64                `json:"end_time" validate:"milli_timestamp"`
-	BkAppCode            string               `json:"bk_app_code"`
-	AccessType           AccessTypeEnum       `json:"access_type" validate:"access_type"`
-	AccessSourceIp       string               `json:"access_source_ip"`
-	AccessUserAgent      string               `json:"access_user_agent"`
-	ActionID             string               `json:"action_id" validate:"required"`
-	ResourceTypeID       string               `json:"resource_type_id"`
-	InstanceID           string               `json:"instance_id"`
-	InstanceName         string               `json:"instance_name"`
-	InstanceSensitivity  int64                `json:"instance_sensitivity"`
-	InstanceData         map[string]any       `json:"instance_data"`
-	InstanceOriginData   map[string]any       `json:"instance_origin_data"`
-	ResultCode           int64                `json:"result_code"`
-	ResultContent        string               `json:"result_content"`
-	ExtendData           map[string]any       `json:"extend_data"`
-	BkLogScope           string               `json:"bk_log_scope"`
+	EventID                 string               `json:"event_id" validate:"event_id"`
+	EventContent            string               `json:"event_content"`
+	RequestID               string               `json:"request_id"`
+	Username                string               `json:"username" validate:"required"`
+	UserIdentifyType        UserIdentifyTypeEnum `json:"user_identify_type" validate:"user_identify_type"`
+	UserIdentifyTenantID    string               `json:"user_identify_tenant_id"`
+	UserIdentifySrc         string               `json:"user_identify_src"`
+	UserIdentifySrcUsername string               `json:"user_identify_src_username"`
+	StartTime               int64                `json:"start_time" validate:"milli_timestamp"`
+	EndTime                 int64                `json:"end_time" validate:"milli_timestamp"`
+	BkAppCode               string               `json:"bk_app_code"`
+	AccessType              AccessTypeEnum       `json:"access_type" validate:"access_type"`
+	AccessSourceIp          string               `json:"access_source_ip"`
+	AccessUserAgent         string               `json:"access_user_agent"`
+	ActionID                string               `json:"action_id" validate:"required"`
+	ResourceTypeID          string               `json:"resource_type_id"`
+	InstanceID              string               `json:"instance_id"`
+	InstanceName            string               `json:"instance_name"`
+	InstanceSensitivity     int64                `json:"instance_sensitivity"`
+	InstanceData            map[string]any       `json:"instance_data"`
+	InstanceOriginData      map[string]any       `json:"instance_origin_data"`
+	ResultCode              int64                `json:"result_code"`
+	ResultContent           string               `json:"result_content"`
+	ExtendData              map[string]any       `json:"extend_data"`
+	BkLogScope              string               `json:"bk_log_scope"`
 }
 
 // String - Trans Audit Event to String
@@ -126,12 +128,14 @@ type AuditInstance struct {
 
 // AuditContext - Context for Audit Event
 type AuditContext struct {
-	Username             string               `json:"username"`
-	RequestID            string               `json:"requestID"`
-	AccessType           AccessTypeEnum       `json:"accessType"`
-	AccessSourceIp       string               `json:"accessSourceIp"`
-	AccessUserAgent      string               `json:"accessUserAgent"`
-	UserIdentifyType     UserIdentifyTypeEnum `json:"userIdentifyType"`
-	UserIdentifyTenantId string               `json:"userIdentifyTenantId"`
-	ExtraData            map[string]any       `json:"extra_data"`
+	Username                string               `json:"username"`
+	RequestID               string               `json:"requestID"`
+	AccessType              AccessTypeEnum       `json:"accessType"`
+	AccessSourceIp          string               `json:"accessSourceIp"`
+	AccessUserAgent         string               `json:"accessUserAgent"`
+	UserIdentifyType        UserIdentifyTypeEnum `json:"userIdentifyType"`
+	UserIdentifyTenantId    string               `json:"userIdentifyTenantId"`
+	UserIdentifySrc         string               `json:"user_identify_src"`
+	UserIdentifySrcUsername string               `json:"user_identify_src_username"`
+	ExtraData               map[string]any       `json:"extra_data"`
 }
