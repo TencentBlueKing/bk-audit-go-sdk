@@ -6,7 +6,7 @@ import (
 
 func main() {
 	// add event
-	context := bkaudit.AuditContext{Username: "admin"}
+	context := bkaudit.AuditContext{Username: "admin", ScopeType: "project", ScopeID: "bk-audit"}
 	instance := bkaudit.AuditInstance{
 		InstanceID:          "host_01",
 		InstanceName:        "主机一号",
