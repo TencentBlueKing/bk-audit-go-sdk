@@ -45,6 +45,8 @@ func (f *EventFormatter) Format(
 		UserIdentifySrcUsername: auditContext.UserIdentifySrcUsername,
 		StartTime:               startTime,
 		EndTime:                 endTime,
+		ScopeType:               auditContext.ScopeType,
+		ScopeID:                 auditContext.ScopeID,
 		AccessType:              auditContext.AccessType,
 		AccessSourceIp:          auditContext.AccessSourceIp,
 		AccessUserAgent:         auditContext.AccessUserAgent,

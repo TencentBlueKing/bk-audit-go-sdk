@@ -20,6 +20,8 @@ type AuditEvent struct {
 	StartTime               int64                `json:"start_time" validate:"milli_timestamp"`
 	EndTime                 int64                `json:"end_time" validate:"milli_timestamp"`
 	BkAppCode               string               `json:"bk_app_code"`
+	ScopeType               string               `json:"scope_type"`
+	ScopeID                 string               `json:"scope_id"`
 	AccessType              AccessTypeEnum       `json:"access_type" validate:"access_type"`
 	AccessSourceIp          string               `json:"access_source_ip"`
 	AccessUserAgent         string               `json:"access_user_agent"`
@@ -138,4 +140,6 @@ type AuditContext struct {
 	UserIdentifySrc         string               `json:"user_identify_src"`
 	UserIdentifySrcUsername string               `json:"user_identify_src_username"`
 	ExtraData               map[string]any       `json:"extra_data"`
+	ScopeType               string               `json:"scope_type"`
+	ScopeID                 string               `json:"scope_id"`
 }
